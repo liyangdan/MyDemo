@@ -13,4 +13,10 @@
         <url-pattern>/druid/*</url-pattern>
     </servlet-mapping>
 
+    <!-- swagger ui 的静态资源交由default处理-->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/swagger-ui.html</url-pattern>
+    </servlet-mapping>
+
 </web-app>
