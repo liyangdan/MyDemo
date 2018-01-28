@@ -1,10 +1,12 @@
-package com.chen.entity;
+package com.chen;
 
+import com.alibaba.druid.filter.config.ConfigTools;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -22,10 +24,21 @@ public class DruidDBConfig {
     private static final Logger logger = LoggerFactory.getLogger(DruidDBConfig.class);
 
     private static final String DB_PREFIX = "spring.datasource";
+    @Value("${spring.datasource.password}")
+    private String password;
+    @Value("${public_key}")//读取properties中的变量值,对Druid登陆密码进行加密
+    private String publicKey;
+    private String loginPassWord;
 
     @Bean
     public ServletRegistrationBean druidServlet() {
         logger.info("init Druid Servlet Configuration ");
+        try {
+            loginPassWord=  ConfigTools.decrypt(publicKey, password);//对Druid登陆加密密码进行解密
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
         // IP白名单
         servletRegistrationBean.addInitParameter("allow", "192.168.2.25,127.0.0.1");
@@ -33,7 +46,8 @@ public class DruidDBConfig {
         servletRegistrationBean.addInitParameter("deny", "192.168.1.100");
         //控制台管理用户
         servletRegistrationBean.addInitParameter("loginUsername", "admin");
-        servletRegistrationBean.addInitParameter("loginPassword", "Zcy@0808");
+
+        servletRegistrationBean.addInitParameter("loginPassword", loginPassWord);
         //是否能够重置数据 禁用HTML页面上的“Reset All”功能
         servletRegistrationBean.addInitParameter("resetEnable", "true");
         return servletRegistrationBean;
@@ -45,7 +59,7 @@ public class DruidDBConfig {
         filterRegistrationBean.addUrlPatterns("/*");
         filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
         return filterRegistrationBean;
-        }
+    }
 
     //解决 spring.datasource.filters=stat,wall,log4j 无法正常注册进去
     @ConfigurationProperties(prefix = DB_PREFIX)
@@ -68,6 +82,10 @@ public class DruidDBConfig {
         private int maxPoolPreparedStatementPerConnectionSize;
         private String filters;
         private String connectionProperties;
+        @Value("${public_key}")//读取properties中的变量值
+        private String publicKey;
+
+
 
         @Bean //声明其为Bean实例
         @Primary //在同样的DataSource中，首先使用被标注的DataSource
@@ -75,7 +93,13 @@ public class DruidDBConfig {
             DruidDataSource datasource = new DruidDataSource();
             datasource.setUrl(url);
             datasource.setUsername(username);
-            datasource.setPassword(password);
+            String pass= "";
+            try {
+                pass=  ConfigTools.decrypt(publicKey, password);//对数据库加密密码进行解密
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            datasource.setPassword(pass);
             datasource.setDriverClassName(driverClassName);
 
             //configuration
@@ -93,157 +117,156 @@ public class DruidDBConfig {
             datasource.setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);
             try {
                 datasource.setFilters(filters);
-                } catch (SQLException e) {
+            } catch (SQLException e) {
                 System.err.println("druid configuration initialization filter: " + e);
-                }
+            }
             datasource.setConnectionProperties(connectionProperties);
             return datasource;
         }
 
         public String getUrl() {
             return url;
-            }
+        }
 
         public void setUrl(String url) {
             this.url = url;
-            }
+        }
 
         public String getUsername() {
             return username;
-            }
+        }
 
         public void setUsername(String username) {
             this.username = username;
-            }
+        }
 
         public String getPassword() {
             return password;
-            }
+        }
 
         public void setPassword(String password) {
             this.password = password;
-            }
+        }
 
         public String getDriverClassName() {
-           return driverClassName;
-           }
+            return driverClassName;
+        }
 
         public void setDriverClassName(String driverClassName) {
             this.driverClassName = driverClassName;
-            }
+        }
 
-       public int getInitialSize() {
+        public int getInitialSize() {
             return initialSize;
-            }
+        }
 
         public void setInitialSize(int initialSize) {
             this.initialSize = initialSize;
-            }
+        }
 
         public int getMinIdle() {
             return minIdle;
-            }
+        }
 
         public void setMinIdle(int minIdle) {
             this.minIdle = minIdle;
-            }
+        }
 
         public int getMaxActive() {
             return maxActive;
-            }
+        }
 
         public void setMaxActive(int maxActive) {
             this.maxActive = maxActive;
-            }
+        }
 
         public int getMaxWait() {
             return maxWait;
-            }
+        }
 
         public void setMaxWait(int maxWait) {
             this.maxWait = maxWait;
-            }
+        }
 
         public int getTimeBetweenEvictionRunsMillis() {
             return timeBetweenEvictionRunsMillis;
-            }
+        }
 
         public void setTimeBetweenEvictionRunsMillis(int timeBetweenEvictionRunsMillis) {
             this.timeBetweenEvictionRunsMillis = timeBetweenEvictionRunsMillis;
-            }
+        }
 
         public int getMinEvictableIdleTimeMillis() {
             return minEvictableIdleTimeMillis;
-            }
+        }
 
         public void setMinEvictableIdleTimeMillis(int minEvictableIdleTimeMillis) {
             this.minEvictableIdleTimeMillis = minEvictableIdleTimeMillis;
-            }
+        }
 
         public String getValidationQuery() {
             return validationQuery;
-            }
+        }
 
         public void setValidationQuery(String validationQuery) {
             this.validationQuery = validationQuery;
-            }
+        }
 
         public boolean isTestWhileIdle() {
             return testWhileIdle;
-            }
+        }
 
         public void setTestWhileIdle(boolean testWhileIdle) {
             this.testWhileIdle = testWhileIdle;
-            }
+        }
 
         public boolean isTestOnBorrow() {
             return testOnBorrow;
-            }
+        }
 
         public void setTestOnBorrow(boolean testOnBorrow) {
             this.testOnBorrow = testOnBorrow;
-            }
+        }
 
-       public boolean isTestOnReturn() {
+        public boolean isTestOnReturn() {
             return testOnReturn;
-            }
+        }
 
         public void setTestOnReturn(boolean testOnReturn) {
             this.testOnReturn = testOnReturn;
-            }
+        }
 
-       public boolean isPoolPreparedStatements() {
+        public boolean isPoolPreparedStatements() {
             return poolPreparedStatements;
-            }
+        }
 
         public void setPoolPreparedStatements(boolean poolPreparedStatements) {
             this.poolPreparedStatements = poolPreparedStatements;
-            }
+        }
 
-       public int getMaxPoolPreparedStatementPerConnectionSize() {
+        public int getMaxPoolPreparedStatementPerConnectionSize() {
             return maxPoolPreparedStatementPerConnectionSize;
-            }
+        }
 
         public void setMaxPoolPreparedStatementPerConnectionSize(int maxPoolPreparedStatementPerConnectionSize) {
             this.maxPoolPreparedStatementPerConnectionSize = maxPoolPreparedStatementPerConnectionSize;
-            }
+        }
 
         public String getFilters() {
             return filters;
-            }
+        }
 
         public void setFilters(String filters) {
             this.filters = filters;
-            }
+        }
 
         public String getConnectionProperties() {
             return connectionProperties;
-            }
+        }
 
         public void setConnectionProperties(String connectionProperties) {
             this.connectionProperties = connectionProperties;
-            }
         }
+    }
 
 }
-
