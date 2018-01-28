@@ -39,27 +39,9 @@ public class SwaggerConfiguration {
     private ApiInfo outApiInfo() {
         return new ApiInfoBuilder().title("使用Spring Boot 集成 swagger")
                 .description("Zcy数据库增、删、查、改").build();
-//        return new ApiInfo(
-//                "mylearn 前后端接口-外部", // title 标题
-//                "外部接口文档", // description 描述 标题下
-//                "1.0.0", // version
-//                "http://mylearn/*", // termsOfService
-//                new Contact("xieyuebin", "", "xieyuebin@meituan.com"), // contact
-//                "Apache 2.0", // licence
-//                "http://www.apache.org/licenses/LICENSE-2.0.html" // licence url
-//        );
+
 
     }
 
-//    @Bean
-//    public UiConfiguration getUiConfig() {
-//        return new UiConfiguration(
-//                null,// url,暂不用
-//                "none",       // docExpansion          => none | list
-//                "alpha",      // apiSorter             => alpha
-//                "schema",     // defaultModelRendering => schema
-//                UiConfiguration.Constants.DEFAULT_SUBMIT_METHODS,
-//                false,        // enableJsonEditor      => true | false
-//                true);        // showRequestHeaders    => true | false
-//    }
+
 }

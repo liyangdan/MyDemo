@@ -47,7 +47,6 @@ public class UserController {
     public User addUser(Integer id,  String username, String createdata, double score) {
         // 这里为了方便直接将输入内容返回
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println("*****hvjkshjhkj");
         Date date = null; //初始化date
         try {
             date = sdf.parse(createdata); //Mon Jan 14 00:00:00 CST 2013
@@ -56,23 +55,14 @@ public class UserController {
         }
         User user=new User();
         user.setId(id);
-        System.out.println("*&&&&&&："+createdata);
         user.setCreatedata(date);
         user.setScore(score);
         user.setUsername(username);
-        System.out.println("*******+user:"+user);
         userService.addUser(user);
-        //System.out.println("***********"+user);
+
         return user;
     }
 
-
-//    public User add(User user) {
-//        // 这里为了方便直接将输入内容返回
-//        userService.addUser(user);
-//        //System.out.println("***********"+user);
-//        return user;
-//    }
 
     /**
      * 修改的时候，我通过使用JSON的方式来修改
@@ -82,12 +72,12 @@ public class UserController {
      * @return
      */
     @ApiOperation(value = "/update", notes = "根据ID修改用户信息")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(paramType = "path", name = "id", value = "用户ID", required = true, dataType = "Long"),
-//            @ApiImplicitParam(paramType = "body", name = "user", value = "用户实体", required = true, dataType = "User") })
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
-    //@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public User update(@PathVariable Long id, @RequestBody User user) {
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType = "path", name = "id", value = "用户ID", required = true, dataType = "long"),
+            @ApiImplicitParam(paramType = "body", name = "user", value = "用户信息", required = true, dataType = "User") })
+    //@RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public User update(@PathVariable long id, @RequestBody User user) {
         // 这里为了方便直接将输入内容返回
         user.setId(id);
         userService.updateUser(user);
@@ -116,7 +106,7 @@ public class UserController {
     @ApiOperation(value="根据id删除信息")
 //    @ApiImplicitParam(paramType="query", name = "userNumber", value = "用户编号", required = true, dataType = "Integer")
     public int DeleteById(@RequestParam Long id){
-        System.out.println(userService.delUser(id));
+        userService.delUser(id);
         return 1;
     }
 

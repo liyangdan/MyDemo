@@ -18,6 +18,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import static com.google.common.base.Predicates.or;
 
+/**
+ * swagger访问地址：
+ * http://localhost:8080/swagger-ui.html
+ *
+ * Druid访问地址
+ * http://localhost:8080/druid/index.html
+ */
+
 
 @ServletComponentScan
 @SpringBootApplication
