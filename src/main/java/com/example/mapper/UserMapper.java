@@ -1,11 +1,13 @@
-package com.chen.mapper;
+package com.example.mapper;
 
-import com.chen.entity.User;
+import com.example.entity.User;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Created by liyangdan on 2018/1/24.
+ */
 
 @Mapper
 public interface UserMapper {

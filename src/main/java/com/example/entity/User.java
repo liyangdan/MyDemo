@@ -1,11 +1,11 @@
-package com.chen.entity;
+package com.example.entity;
 
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import lombok.Data;
 
 import java.util.Date;
-
+/**
+ * Created by liyangdan on 2018/1/24.
+ */
 
 @Data
 public class User {

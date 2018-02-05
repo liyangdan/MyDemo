@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chen.mapper.UserMapper">
+<mapper namespace="com.example.mapper.UserMapper">
 
 
 
@@ -12,17 +12,17 @@
     -->
     <!--根据id查询得到一个user对象-->
     <select id="getUser" parameterType="long"
-            resultType="com.chen.entity.User">
-        select * from users where id=#{id}
+            resultType="com.example.entity.User">
+        SELECT * FROM users WHERE id=#{id}
     </select>
 
     <!-- 查询所有-->
-    <select id="getAllUser" resultType="com.chen.entity.User">
-        select * from users
+    <select id="getAllUser" resultType="com.example.entity.User">
+        SELECT * FROM users
     </select>
 
     <!--增加-->
-    <insert id="addUser" parameterType="com.chen.entity.User">
+    <insert id="addUser" parameterType="com.example.entity.User">
         INSERT INTO users(id,username,createdata,score) VALUES (#{id},#{username},#{createdata},#{score})
     </insert>
 
@@ -32,7 +32,7 @@
     </delete>
 
     <!--修改-->
-    <update id="updateUser" parameterType="com.chen.entity.User">
+    <update id="updateUser" parameterType="com.example.entity.User">
         UPDATE users SET username=#{username},createdata=#{createdata},score=#{score} WHERE id=#{id}
     </update>
 </mapper>

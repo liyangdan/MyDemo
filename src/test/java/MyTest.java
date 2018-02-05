@@ -1,12 +1,16 @@
-import com.chen.Application;
-import com.chen.entity.User;
-import com.chen.service.UserService;
+import com.example.Application;
+import com.example.entity.User;
+import com.example.service.UserService;
+import com.example.utils.DecryptUtils;
+import com.example.utils.EncryptionUtils;
+import com.example.utils.SaveKeyTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -67,5 +71,20 @@ public class MyTest {
         new_user.setId(15105);
         new_user.setCreatedata(date);
         userService.addUser(new_user);
+    }
+    @Test
+    public void test6() throws IOException {
+        //EncryptionUtils eu=new EncryptionUtils();
+        DecryptUtils decryptUtils=new DecryptUtils();
+        String str=EncryptionUtils.getEncryptBase64String("Zcy@0808");
+        //String str="82sLqqyE7AERNjvMUVd8JA==";
+        System.out.println("^^^^^^^str:"+str);
+        System.out.println("scopre:"+EncryptionUtils.getDecryptString(str));
+        //System.out.println("***********"+ decryptUtils.convertProperty("jdbc.password",str));
+    }
+    @Test
+    public void test7() throws IOException {
+        SaveKeyTest.sendSecret();
+        SaveKeyTest.receiveSecret();
     }
 }

@@ -1,9 +1,11 @@
-package com.chen.service;
+package com.example.service;
 
-import com.chen.entity.User;
-import org.apache.ibatis.annotations.Mapper;
+import com.example.entity.User;
 
 import java.util.List;
+/**
+ * Created by liyangdan on 2018/1/24.
+ */
 
 public interface UserService {
     User getUserById(long id);
