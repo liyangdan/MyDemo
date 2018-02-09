@@ -1,10 +1,8 @@
 package com.example;
 
 
-import ch.qos.logback.classic.Logger;
 import com.google.common.base.Predicate;
 import org.mybatis.spring.annotation.MapperScan;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
@@ -27,7 +25,7 @@ import static com.google.common.base.Predicates.or;
 @ServletComponentScan
 @SpringBootApplication
 @MapperScan("com.example.mapper")
-@ImportResource(value = "classpath:/*.xml")
+@ImportResource(value = "classpath:/spring/*.xml")
 @EnableSwagger2 //启用swagger
 
 public class Application {

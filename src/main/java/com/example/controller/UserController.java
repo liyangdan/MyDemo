@@ -109,15 +109,15 @@ public class UserController {
     @ApiOperation(value="查询所有信息")
 //    @ApiImplicitParam(paramType="query", name = "userNumber", value = "用户编号", required = true, dataType = "Integer")
     public List<User> RetrieveAll(){
-        LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
-        StatusPrinter.print(lc);
+//        LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
+//        StatusPrinter.print(lc);
         logger.debug("test........");
         System.out.println("debug:——————"+logger.isDebugEnabled());
         System.out.println("info-----"+logger.isInfoEnabled());
         System.out.println("error----"+logger.isErrorEnabled());
         System.out.println("trance-----"+logger.isTraceEnabled());
         //logger.info("&&&&logger******");
-        logger.warn("finish:{}", userService.getAllUser());
+//        logger.warn("finish:{}", userService.getAllUser());
 
         return userService.getAllUser();
     }
