@@ -1,3 +1,29 @@
+<<<<<<< HEAD
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+=======
 target
 target/
 out
@@ -29,3 +55,4 @@ components_vendor/
 #.gitignore
 rebel.xml
 LOG_FILE_IS_UNDEFINED
+>>>>>>> 1af7e57647ee446144a50faeb745fc790cfcb1b4
