@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -22,3 +23,36 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+=======
+target
+target/
+out
+out/
+*.log
+*.txt
+logs
+logs/
+logRoot_IS_UNDEFINED
+logRoot_IS_UNDEFINED/
+.idea
+.idea/
+*.class
+*.iml
+vendor/
+icons.scss
+public/
+.sass-cache
+.DS_Store
+components_eevee/
+components_vendor/
+# eclipse #
+.project
+.classpath
+.settings/
+# spring #
+.factorypath
+# git #
+#.gitignore
+rebel.xml
+LOG_FILE_IS_UNDEFINED
+>>>>>>> 1af7e57647ee446144a50faeb745fc790cfcb1b4
